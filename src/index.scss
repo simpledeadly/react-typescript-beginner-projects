@@ -1,16 +1,15 @@
-$bg: #151515;
-$text: #eeeeee;
-$primary: #a91d3a;
-$secondary: #c73659;
-
-body {
-	margin: 0;
+* {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
+}
+
+body {
+	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: $bg;
+	background-color: #af8260;
+	color: #322c2b;
 }
 
 .App {
@@ -19,59 +18,97 @@ body {
 	justify-content: center;
 	height: 100vh;
 	text-align: center;
+}
 
-	h1 {
-		color: $text;
-		font-size: 7rem;
-		margin: 0;
-		margin-bottom: 20px;
+.open-modal-btn {
+	background: #e4c59e;
+	padding: 18px 25px;
+	font-weight: 600;
+	border: 0;
+	outline: none;
+	font-size: 22px;
+	cursor: pointer;
+	line-height: 23px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+	transition: all 0.1s linear;
+}
 
-		&.plus {
-			color: $primary;
-		}
-		&.minus {
-			color: $secondary;
-		}
+.close-modal-btn {
+	background: #322c2b;
+	color: #e4c59e;
+	padding: 18px 25px;
+	font-weight: 600;
+	border: 0;
+	outline: none;
+	font-size: 22px;
+	cursor: pointer;
+	line-height: 23px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+	transition: all 0.1s linear;
+}
+
+.overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	transition: all 0.1s linear;
+}
+
+.modal {
+	background-color: #e4c59e;
+	width: 70%;
+	max-width: 500px;
+	max-height: 300px;
+	padding: 1rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+	transition: all 0.1s linear;
+
+	img {
+		border-radius: 5px;
+		width: 100%;
 	}
 
-	h2 {
-		font-size: 2rem;
-		margin: 0;
-		color: rgba($text, 0.5);
-	}
-
-	button {
-		background: transparent;
-		border: 2px solid transparent;
-		text-align: center;
-		font-size: 22px;
-		border-radius: 15px;
-		padding: 10px 25px;
+	svg {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		height: 24px;
+		width: 24px;
+		opacity: 0.3;
 		cursor: pointer;
-		margin: 0 10px;
-		transition: all 0.05s ease-in-out;
-
-		&.minus {
-			background-color: $secondary;
-			color: #fff;
-			box-shadow: 0 4px 0 darken($secondary, 10%);
-			border: 1px solid darken($secondary, 15%);
-		}
-
-		&.plus {
-			background-color: $primary;
-			color: #fff;
-			box-shadow: 0 4px 0 darken($primary, 10%);
-			border: 1px solid darken($primary, 15%);
-		}
 
 		&:hover {
-			transform: translateY(-2px);
+			opacity: 1;
 		}
+	}
+}
 
-		&:active {
-			transform: translateY(2px);
-			box-shadow: none;
+.overlay.animated {
+	opacity: 0;
+	visibility: hidden;
+
+	.modal {
+		opacity: 0;
+		visibility: hidden;
+		transform: translate(-50%, -30%);
+		// transition-delay: 0.1s;
+	}
+
+	&.show {
+		opacity: 1;
+		visibility: visible;
+
+		.modal {
+			opacity: 1;
+			visibility: visible;
+			transform: translate(-50%, -50%);
 		}
 	}
 }
