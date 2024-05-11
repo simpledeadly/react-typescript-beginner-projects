@@ -1,4 +1,4 @@
-import { Dispatch, EventHandler, FC, useState } from 'react'
+import { Dispatch, FC, useState } from 'react'
 import './index.scss'
 
 type Question = {
@@ -44,7 +44,7 @@ interface ResultProps {
   setStep: Dispatch<number>
 }
 
-const Result: FC<ResultProps> = ({ correct, setCorrect, setStep }: ResultProps): JSX.Element => (
+const Result: FC<ResultProps> = ({ correct, setCorrect, setStep }) => (
   <div className="result">
     <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" alt='hurray' />
     <h2>Вы отгадали {correct} ответа из {questions.length}</h2>
@@ -60,10 +60,10 @@ const Result: FC<ResultProps> = ({ correct, setCorrect, setStep }: ResultProps):
 interface QuestionProps {
   step: number,
   question: Question,
-  handleChooseVariant: EventHandler<any>
+  handleChooseVariant: (idx: number) => void
 }
 
-const Game: FC<QuestionProps> = ({ step, question, handleChooseVariant }: QuestionProps): JSX.Element => {
+const Game: FC<QuestionProps> = ({ step, question, handleChooseVariant }) => {
   const percentage = Math.round(step / questions.length * 100)
 
   return (
@@ -73,9 +73,9 @@ const Game: FC<QuestionProps> = ({ step, question, handleChooseVariant }: Questi
       </div>
       <h1>{question.title}</h1>
       <ul>
-        {question.variants.map(
-          (variant: string, index: number): JSX.Element => (
-            <li onClick={(): void => handleChooseVariant(index)} key={index}>{variant}</li>
+        {question.variants.map<JSX.Element>(
+          (variant, index) => (
+            <li onClick={() => handleChooseVariant(index)} key={index}>{variant}</li>
           ))
         }
       </ul>
@@ -83,12 +83,12 @@ const Game: FC<QuestionProps> = ({ step, question, handleChooseVariant }: Questi
   )
 }
 
-export const App: FC = (): JSX.Element => {
-  const [step, setStep]: [number, Dispatch<number>] = useState<number>(0)
-  const [correct, setCorrect]: [number, Dispatch<number>] = useState<number>(0)
+export const App: FC = () => {
+  const [step, setStep] = useState<number>(0)
+  const [correct, setCorrect] = useState<number>(0)
   const question: Question = questions[step]
 
-  const handleChooseVariant: EventHandler<any> = (idx: number): void => {
+  const handleChooseVariant = (idx: number): void => {
     setStep(step + 1)
     if (idx === question.correct) {
       setCorrect(correct + 1)
