@@ -4,7 +4,7 @@ import './index.scss'
 
 interface ModalProps { modal: boolean, setModal: Dispatch<boolean>, children: ReactNode }
 
-const Modal: FC<ModalProps> = ({ modal, setModal, children }: ModalProps): JSX.Element => (
+const Modal: FC<ModalProps> = ({ modal, setModal, children }) => (
   <div className={`overlay animated ${modal && 'show'}`}>
     <Squircle
       cornerRadius={15}
@@ -16,7 +16,7 @@ const Modal: FC<ModalProps> = ({ modal, setModal, children }: ModalProps): JSX.E
         cornerRadius={10}
         cornerSmoothing={1}
         className="close-modal-btn"
-        onClick={(): void => setModal(false)}
+        onClick={() => setModal(false)}
       >
         Закрыть
       </Squircle>
@@ -24,8 +24,8 @@ const Modal: FC<ModalProps> = ({ modal, setModal, children }: ModalProps): JSX.E
   </div>
 )
 
-export const App: FC = (): JSX.Element => {
-  const [modal, setModal]: [boolean, Dispatch<boolean>] = useState<boolean>(false)
+export const App: FC = () => {
+  const [modal, setModal] = useState<boolean>(false)
 
   return (
     <div className="App">
@@ -33,7 +33,7 @@ export const App: FC = (): JSX.Element => {
         cornerRadius={10}
         cornerSmoothing={1}
         className="open-modal-btn"
-        onClick={(): void => setModal(true)}
+        onClick={() => setModal(true)}
       >
         Открыть модалку
       </Squircle>
