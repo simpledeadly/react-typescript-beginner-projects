@@ -1,26 +1,38 @@
-import { FC, useState } from 'react'
-import { Game, Result } from './components'
-import { questions } from './data'
-import { Question, handleChooseVariantType } from './types'
+import { FC, useEffect, useState } from 'react'
+import { Success } from './components/Success'
+import { Users } from './components/Users/Users'
+import { OnClickInvite, User } from './types'
+
+// список пользователей: https://reqres.in/api/users
 
 export const App: FC = () => {
-  const [step, setStep] = useState<number>(0)
-  const [correct, setCorrect] = useState<number>(0)
-  const question: Question = questions[step]
+  const [loading, setLoading] = useState<boolean>(false)
+  const [users, setUsers] = useState<User[]>([])
+  const [invites, setInvites] = useState<number[]>([])
+	const [success, setSuccess] = useState<boolean>(false)
 
-  const handleChooseVariant: handleChooseVariantType = idx => {
-    setStep(step + 1)
-    if (idx === question.correct) {
-      setCorrect(correct + 1)
+  useEffect(() => {
+    setLoading(true)
+    fetch('https://reqres.in/api/users')
+      .then(res => res.json())
+      .then(res => setUsers(res.data))
+    setLoading(false)
+  }, [])
+
+  const onClickInvite: OnClickInvite = (id) => {
+    if (invites.includes(id)) {
+      setInvites(prev => prev.filter(_id => _id !== id))
+    } else {
+      setInvites(prev => [...prev, id])
     }
   }
 
   return (
     <div className="App">
-      {step !== questions.length ? (
-          <Game step={step} question={question} handleChooseVariant={handleChooseVariant} />
+      {!success ? (
+          <Users loading={loading} items={users} invites={invites} success={success} setSuccess={setSuccess} onClickInvite={onClickInvite} />
         ) : (
-          <Result correct={correct} setCorrect={setCorrect} setStep={setStep} />
+          <Success count={invites.length} setSuccess={setSuccess} />
         )
       }
     </div>
