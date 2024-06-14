@@ -2,32 +2,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 $bg: #0c0c0c; // def: dfe2ff
-$bgCard: #f1f1f1; // def: fff
+$bgCard: #080808; // def: ddd, 080808
+$stroke: #44484b; // def: 44484b, #9ea1a3
 $primary: #fb5000; // def: fb5000
 $primaryHovered: #ff6118; // def: ff6118
 $headingText: #182170; // def: 182170
 
 body {
 	margin: 0;
+	padding: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: $bg;
 }
 
 * {
+	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Inter', sans-serif;
 	outline: none;
 }
 
+.mt {
+	margin-top: 1rem;
+}
+
 .App {
 	width: 400px;
 	max-height: 80vh;
-	margin: 10vh auto;
-	background-color: $bgCard;
-	border-radius: 30px;
+	margin: 20vh auto;
+	// background-color: $bgCard;
+	color: #020202;
+	border-radius: 0.5rem;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 	padding: 2rem;
+}
+
+.progress__bar {
+	// width: 100%;
+	width: 200px;
+	min-height: 40px;
+	position: relative;
+	border-radius: 5px;
+	margin-bottom: 1rem;
+	border: 1.5px solid $stroke;
+	padding: 2px;
+}
+
+.progress__period {
+	height: 33px;
+	// height: 90%;
+	// height: 100%;
+	border-radius: 2.5px;
+	// margin-top: 2px; // 0.5%
+}
+
+.periods__list {
+	color: #ccc;
+	margin: 0;
+	padding: 0;
+}
+
+.periods__list__element {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.periods__list__element p {
+	margin-left: 0.5rem;
+}
+
+.badge {
+	width: 10px;
+	height: 10px;
+	background: #44484b;
+	border-radius: 100%;
+}
+
+.modal__content {
+	display: flex;
+	flex-direction: column;
+}
+
+.element {
+	display: flex;
+}
+
+.btns {
+	margin-bottom: 1rem;
+}
+
+.btn {
+	background: $stroke;
+	color: #f0f0f0;
+	border: none;
+	font-weight: bold;
+	margin: 0.125rem;
+
+	&:hover {
+		background: rgba($stroke, 0.8) !important;
+		color: #fff !important;
+	}
+
+	&:disabled {
+		background: rgba($stroke, 0.4);
+		color: #aaa;
+
+		&:hover {
+			background: rgba($stroke, 0.4) !important;
+			color: #aaa !important;
+		}
+	}
 }
 
 .search {
